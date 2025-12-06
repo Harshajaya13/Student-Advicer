@@ -95,25 +95,25 @@ body {
 }
 
 /* 1. FRONTEND STYLES */
-.path-card.front:hover {
+.path-card.c1:hover {
     border-color: var(--frontend-color);
     box-shadow: 0 0 30px rgba(0, 242, 255, 0.15);
 }
-.path-card.front h2 { color: var(--frontend-color); }
+.path-card.c1 h2 { color: var(--frontend-color); }
 
 /* 2. BACKEND STYLES */
-.path-card.back:hover {
+.path-card.c2:hover {
     border-color: var(--backend-color);
     box-shadow: 0 0 30px rgba(255, 85, 0, 0.15);
 }
-.path-card.back h2 { color: var(--backend-color); }
+.path-card.c2 h2 { color: var(--backend-color); }
 
 /* 3. MOBILE STYLES */
-.path-card.mobile:hover {
+.path-card.c3:hover {
     border-color: var(--mobile-color);
     box-shadow: 0 0 30px rgba(189, 0, 255, 0.15);
 }
-.path-card.mobile h2 { color: var(--mobile-color); }
+.path-card.c3 h2 { color: var(--mobile-color); }
 
 /* 4. "NO CLUE" STYLES */
 .path-card.zero {
