@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CollegeBuddy: Ranked Search</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 1. CORE VARIABLES & RESET --- */
+        :root {
+            --primary: #2563eb;       /* Blue */
+            --secondary: #64748b;     /* Grey */
+            --bg-light: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            margin: 0;
+            padding: 20px;
+            color: var(--text-dark);
+        }
+
+        /* --- 2. LAYOUT (SEARCH & SPLIT VIEW) --- */
+        .main-container { max-width: 1200px; margin: 0 auto; }
+        
+        .search-focus-container { 
+            text-align: center; margin-bottom: 30px; 
+        }
+        
+        .search-box { 
+            max-width: 700px; margin: 0 auto; 
+            background: white; padding: 20px; border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .search-row { display: flex; gap: 10px; }
+        
+        input { 
+            flex: 1; padding: 12px; border: 1px solid #ddd; 
+            border-radius: 6px; font-size: 16px; 
+        }
+
+        #search-button {
+            padding: 12px 24px; background: var(--primary); color: white;
+            border: none; border-radius: 6px; font-weight: 600; cursor: pointer;
+        }
+
+        /* Split View Container */
+        .results-container {
+            display: none; /* Hidden until search */
+            gap: 20px;
+            align-items: flex-start; /* Keeps map sticky if needed */
+        }
+
+        .list-section { flex: 1; min-width: 0; /* Prevents flex overflow */ }
+        .map-section { flex: 1; position: sticky; top: 20px; }
+
+        /* --- 3. ROCK SOLID CARD STYLING --- */
+        .college-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: all 0.2s ease;
+        }
+
+        /* The Header (Visible Part) */
+        .card-header {
+            padding: 1.25rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+        }
+
+        .card-header:hover { background-color: #f8fafc; }
+
+        /* The Name Link (Triggers Map) */
+        .college-name {
+            font-size: 1.1rem; font-weight: 700; color: var(--primary);
+            text-decoration: none; border-bottom: 1px dashed transparent;
+            margin-right: 8px; transition: all 0.2s;
+            display: inline-block;
+        }
+        
+        .college-name:hover {
+            border-bottom-color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .rank-badge {
+            background: #f59e0b; color: white; font-size: 0.75rem;
+            padding: 2px 6px; border-radius: 4px; vertical-align: middle;
+        }
+
+        .location-text { font-size: 0.9rem; color: var(--secondary); display: block; margin-top: 4px; }
+        
+        .toggle-icon { font-size: 1.5rem; color: var(--secondary); transition: transform 0.3s; }
+        
+        /* The Body (Hidden Part) */
+        .card-body {
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out;
+            background-color: #fafafa; border-top: 1px solid transparent;
+        }
+
+        .college-card.active .card-body { border-top: 1px solid var(--border); }
+        .college-card.active .toggle-icon { transform: rotate(45deg); color: var(--primary); }
+
+        .inner-content { padding: 1.5rem; }
+
+        /* Stats & Courses */
+        .stats-row { display: flex; gap: 10px; margin-bottom: 15px; }
+        
+        .stat-box { 
+            flex: 1; background: white; border: 1px solid var(--border); 
+            padding: 10px; text-align: center; border-radius: 8px; 
+        }
+        
+        .stat-box small { display: block; color: var(--secondary); font-size: 0.75rem; text-transform: uppercase; }
+        .stat-box strong { font-size: 1.1rem; color: var(--text-dark); }
+
+        .course-list { 
+            margin: 0; padding-left: 20px; color: var(--secondary); font-size: 0.9rem; 
+        }
+        .course-list li { margin-bottom: 5px; }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <div class="search-focus-container">
+            <h1 style="margin-bottom: 10px;">Find Top Colleges</h1>
+            <p style="color: #666; margin-bottom: 20px;">Search by City & Course. Sorted by NIRF Ranking.</p>
+
+            <div class="search-box">
+                <div class="search-row">
+                    <input type="text" id="city-input" placeholder="Enter City (e.g., Visakhapatnam)">
+                    <input type="text" id="course-input" placeholder="Course (e.g., B.Tech)">
+                    <button id="search-button">Search</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-container" id="results-container">
+            
+            <div class="list-section">
+                <h3 style="margin-top: 0;">Top Results</h3>
+                <div id="college-list"></div>
+            </div>
+
+            <div class="map-section">
+                <h3 style="margin-top: 0;">Location Preview</h3>
+                <div class="map-container">
+                    <iframe
+                        id="map-iframe"
+                        width="100%"
+                        height="500"
+                        style="border:0; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"
+                        loading="lazy"
+                        src="">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    const searchBtn = document.getElementById('search-button');
+    const cityInput = document.getElementById('city-input');
+    const mapIframe = document.getElementById('map-iframe');
+    const listContainer = document.getElementById('college-list');
+    const resultsContainer = document.getElementById('results-container');
+
+    // --- 1. MOCK DATA HELPERS ---
+    function getMockCourses() {
+        const courses = [
+            "Computer Science Engineering", "Electronics & Communication",
+            "Mechanical Engineering", "Civil Engineering", "Data Science & AI"
+        ];
+        return courses.sort(() => 0.5 - Math.random()).slice(0, 3);
+    }
+
+    // --- 2. THE MASTER "CLICK" MANAGER (Event Delegation) ---
+    // This fixes the viewing mistake by listening to the container, not individual cards.
+    listContainer.addEventListener('click', function(e) {
+        
+        // A. Did the user click the "Name Link" (Map Trigger)?
+        if (e.target.classList.contains('map-trigger')) {
+            e.stopPropagation(); // Don't open the accordion
+            const location = e.target.getAttribute('data-loc');
+            updateMap(location);
+            return; // Stop here
+        }
+
+        // B. Did the user click the "Card Header"?
+        // We use .closest() to find the header even if they clicked the text inside it
+        const header = e.target.closest('.card-header');
+        
+        if (header) {
+            const card = header.parentElement;
+            const body = card.querySelector('.card-body');
+            
+            // Toggle Logic
+            card.classList.toggle('active');
+            
+            if (card.classList.contains('active')) {
+                // Smooth Slide Down
+                body.style.maxHeight = body.scrollHeight + "px";
+            } else {
+                // Smooth Slide Up
+                body.style.maxHeight = null;
+            }
+        }
+    });
+
+    // --- 3. SEARCH LOGIC ---
+    searchBtn.addEventListener('click', () => {
+        const city = cityInput.value.trim();
+        const course = document.getElementById('course-input').value;
+
+        if(!city) { alert("Please enter a city"); return; }
+
+        // Show layout
+        resultsContainer.style.display = 'flex';
+        
+        // Reset Map
+        updateMap(city);
+        
+        // Fetch Data
+        fetchColleges(city, course);
+    });
+
+    // --- 4. MAP UPDATE ---
+    function updateMap(locationName) {
+        const cleanLoc = encodeURIComponent(locationName);
+        // Using the standard embed format (more reliable)
+        mapIframe.src = `https://maps.google.com/maps?q=${cleanLoc}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
+    }
+
+    // --- 5. FETCH & RENDER ---
+    async function fetchColleges(city, course) {
+        listContainer.innerHTML = `<p style="text-align:center; color:#666; margin-top:20px;">Searching database...</p>`;
+
+        try {
+            // --- SIMULATING DATA (Replace with fetch later) ---
+            await new Promise(r => setTimeout(r, 600)); 
+            
+            // Randomly generating a rank for realism
+            const data = [
+                { name: "Andhra University", city: city, rank: 48, state: "Andhra Pradesh", acc: "12%" },
+                { name: "GITAM University", city: city, rank: 67, state: "Andhra Pradesh", acc: "45%" },
+                { name: "Gayatri Vidya Parishad", city: city, rank: 9999, state: "Andhra Pradesh", acc: "20%" }
+            ];
+            // ------------------------------------------------
+
+            listContainer.innerHTML = ""; // Clear loading message
+
+            if (data.length === 0) {
+                listContainer.innerHTML = "<p>No colleges found.</p>";
+                return;
+            }
+
+            // GENERATE HTML STRINGS ONLY (JS handles clicks separately above)
+            data.forEach(college => {
+                const mockCourses = getMockCourses();
+                const rankDisplay = college.rank === 9999 ? "Unranked" : `#${college.rank} NIRF`;
+
+                const cardHTML = `
+                    <div class="college-card">
+                        <div class="card-header">
+                            <div class="header-content">
+                                <div class="college-name-wrapper">
+                                    <span class="college-name map-trigger" data-loc="${college.name}, ${college.city}">
+                                        ${college.name} 🔗
+                                    </span>
+                                    <span class="rank-badge">${rankDisplay}</span>
+                                </div>
+                                <span class="location-text">📍 ${college.city}, ${college.state}</span>
+                            </div>
+                            <span class="toggle-icon">+</span>
+                        </div>
+                        
+                        <div class="card-body">
+                            <div class="inner-content">
+                                <div class="stats-row">
+                                    <div class="stat-box">
+                                        <small>Rank</small> <strong>${rankDisplay}</strong>
+                                    </div>
+                                    <div class="stat-box">
+                                        <small>Acceptance</small> <strong>${college.acc}</strong>
+                                    </div>
+                                </div>
+                                <h4 style="margin: 0 0 10px 0; font-size: 0.95rem;">Available Mock Courses</h4>
+                                <ul class="course-list">
+                                    ${mockCourses.map(c => `<li>${c}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add string to container
+                listContainer.innerHTML += cardHTML;
+            });
+
+        } catch (error) {
+            console.error(error);
+            listContainer.innerHTML = "<p>Error loading data.</p>";
+        }
+    }
+</script>
+</body>
+</html>
