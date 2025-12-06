@@ -63,6 +63,7 @@
 .warning-card { border-left-color: #f59e0b; } /* Orange */
 .metaphor-card { border-left-color: #3b82f6; } /* Blue */
 .time-card { border-left-color: #ef4444; } /* Red */
+.ai-card { border-left-color: #10b981; } /* Green */
 
 .highlight-text {
     font-size: 1.3rem;
