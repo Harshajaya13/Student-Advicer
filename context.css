@@ -1,0 +1,131 @@
+.role-showcase-container {
+    padding: 4rem 2rem;
+    background: #0f172a;
+    text-align: center;
+}
+
+.instruction-header h2 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.instruction-header p {
+    color: #94a3b8;
+    margin-bottom: 3rem;
+}
+
+/* THE GRID */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive */
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* THE CARD */
+.role-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: left;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.role-card:hover {
+    transform: translateY(-10px);
+    border-color: #00d2ff;
+    box-shadow: 0 10px 30px rgba(0, 210, 255, 0.1);
+}
+
+.role-card h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin: 1rem 0;
+}
+
+.definition {
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+/* TECH STACK PILLS */
+.tech-stack {
+    margin-bottom: 1.5rem;
+}
+.tech-stack span {
+    display: inline-block;
+    background: #334155;
+    color: #00d2ff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+/* DREAM LINKS */
+.dream-links {
+    background: #0f172a;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+.dream-links p {
+    color: #64748b;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+.link-btn {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px dashed #64748b;
+    padding-bottom: 2px;
+}
+.link-btn:hover {
+    color: #00d2ff;
+    border-color: #00d2ff;
+}
+
+/* VIBE CHECK */
+.vibe-check {
+    color: #94a3b8;
+    font-style: italic;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    border-left: 3px solid #00d2ff;
+    padding-left: 10px;
+}
+
+/* BUTTON */
+.choose-btn {
+    margin-top: auto; /* Pushes button to bottom */
+    width: 100%;
+    padding: 1rem;
+    background: #00d2ff;
+    color: #0f172a;
+    border: none;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+.choose-btn:hover {
+    background: #fff;
+}
+
+/* LINK INSIDE BUTTON */
+.choose-btn .link {
+    color: #0f172a;
+    text-decoration: none;
+}
