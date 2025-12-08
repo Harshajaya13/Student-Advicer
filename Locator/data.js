@@ -1,9 +1,8 @@
-// This file acts as your "Library" shelves.
-// We tag every resource with a "category" (youtube, documentation, course)
+
 
 const resourcesData = {
     "python": {
-        senpaiNote: "💡 <strong>Senpai's Note:</strong> You don't need to memorize syntax. Focus on logic. Python is just English that computers understand.",
+        MyNote: "💡 <strong>Senpai's Note:</strong> You don't need to memorize syntax. Focus on logic. Python is just English that computers understand.",
         resources: [
             {
                 category: "youtube",
