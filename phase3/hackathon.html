@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Founders Hackathon</title>
+    <style>
+        body { margin: 0; font-family: 'Inter', sans-serif; background: #0f172a; color: white; text-align: center; }
+        
+        .hero-section {
+            padding: 5rem 1rem;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 70%);
+        }
+
+        h1 { font-size: 3.5rem; margin-bottom: 1rem; background: linear-gradient(to right, #4ade80, #3b82f6); -webkit-background-clip: text; color: transparent; }
+        
+        .timer-box {
+            display: inline-flex; gap: 2rem; margin: 2rem 0;
+            background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);
+        }
+        .time-unit div { font-size: 2.5rem; font-weight: bold; }
+        .time-unit span { font-size: 0.9rem; color: #94a3b8; }
+
+        .cta-btn {
+            background: #2563eb; color: white; padding: 1rem 3rem; font-size: 1.2rem; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; transition: transform 0.2s;
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.5);
+        }
+        .cta-btn:hover { transform: scale(1.05); }
+
+        .prizes-grid {
+            display: flex; justify-content: center; gap: 2rem; padding: 4rem 1rem; max-width: 1000px; margin: 0 auto;
+        }
+        .prize-card {
+            background: #1e293b; padding: 2rem; border-radius: 16px; flex: 1; border: 1px solid #334155;
+        }
+        .prize-icon { font-size: 3rem; margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+
+    <nav class="main-nav">
+    <a href="index.html" class="nav-logo">🚀 TalentHub</a>
+    <div class="nav-menu">
+        <a href="index.html">Home</a>
+        <a href="roadmap.html">Roadmaps</a>
+        <a href="community.html">Projects</a>
+        <a href="hackathon.html" style="color:#ef4444; font-weight:bold;">Hackathon 🔥</a>
+    </div>
+    <a href="dashboard.html" class="nav-btn">My Dashboard</a>
+</nav>
+
+
+    <div class="hero-section">
+        <p style="color: #4ade80; font-weight: bold; letter-spacing: 2px;">PHASE 1 ACTIVATED</p>
+        <h1>Build The Future.</h1>
+        <p style="font-size: 1.2rem; color: #cbd5e1; max-width: 600px; margin: 0 auto;">
+            The 15-Day Challenge. Build a project, get featured on the platform, and connect with recruiters.
+        </p>
+
+        <div class="timer-box">
+            <div class="time-unit">
+                <div>14</div><span>DAYS</span>
+            </div>
+            <div class="time-unit">
+                <div>23</div><span>HOURS</span>
+            </div>
+            <div class="time-unit">
+                <div>59</div><span>MINS</span>
+            </div>
+        </div>
+        <br>
+        <button class="cta-btn" onclick="alert('Registration Form Opening Soon!')">Register for Hackathon</button>
+    </div>
+
+    <div class="prizes-grid">
+        <div class="prize-card">
+            <div class="prize-icon">🏆</div>
+            <h3>Cash Rewards</h3>
+            <p>Top 3 projects win direct cash prizes.</p>
+        </div>
+        <div class="prize-card">
+            <div class="prize-icon">⭐</div>
+            <h3>Founding Member</h3>
+            <p>Get a permanent "Founder" badge on your profile.</p>
+        </div>
+        <div class="prize-card">
+            <div class="prize-icon">🤝</div>
+            <h3>Direct Referrals</h3>
+            <p>Your resume sent to our alumni network.</p>
+        </div>
+    </div>
+
+</body>
+</html>

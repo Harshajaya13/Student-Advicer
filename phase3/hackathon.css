@@ -1,0 +1,31 @@
+/* Glassmorphism Header */
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.9); /* Translucent */
+    backdrop-filter: blur(10px); /* The Blur Effect */
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.nav-logo { font-weight: 800; font-size: 1.5rem; color: #1f2937; text-decoration: none; }
+
+.nav-menu a {
+    text-decoration: none;
+    color: #4b5563;
+    margin-left: 2rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.nav-menu a:hover, .nav-menu a.active { color: #2563eb; }
+
+.nav-btn {
+    background: #1f2937; color: white; padding: 8px 16px; border-radius: 20px;
+    text-decoration: none; font-size: 0.9rem;
+}

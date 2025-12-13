@@ -1,0 +1,98 @@
+\<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My HQ | Student Adviser</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="logo">🚀 TalentHub</div>
+        <ul class="nav-links">
+            <li class="active"><i class="fas fa-home"></i> Dashboard</li>
+            <li><i class="fas fa-map"></i> My Roadmap</li>
+            <li><i class="fas fa-project-diagram"></i> Projects</li>
+            <li><i class="fas fa-certificate"></i> Badges</li>
+        </ul>
+        <div class="user-mini">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=You" alt="User">
+            <span>Logout</span>
+        </div>
+    </nav>
+
+    <main class="dashboard-content">
+        
+        <header class="dash-header">
+            <div>
+                <h1>Welcome back, Dev! 👋</h1>
+                <p>Level 3 Apprentice • 15 Day Streak 🔥</p>
+            </div>
+            <button class="btn-primary">+ New Project</button>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="icon-box blue"><i class="fas fa-code"></i></div>
+                <h3>12</h3>
+                <p>Projects</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon-box green"><i class="fas fa-check-circle"></i></div>
+                <h3>85%</h3>
+                <p>Roadmap Done</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon-box purple"><i class="fas fa-medal"></i></div>
+                <h3>4</h3>
+                <p>Gold Badges</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon-box orange"><i class="fas fa-eye"></i></div>
+                <h3>1.2k</h3>
+                <p>Profile Views</p>
+            </div>
+        </div>
+
+        <div class="content-split">
+            
+            <div class="section-card large">
+                <div class="card-header">
+                    <h2>Current Mission</h2>
+                    <a href="roadmap.html">View Map -></a>
+                </div>
+                <div class="progress-module">
+                    <div class="module-info">
+                        <h3>Advanced React Patterns</h3>
+                        <span>Module 4/10</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="fill" style="width: 40%"></div>
+                    </div>
+                    <button class="btn-resume">Resume Learning</button>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="card-header">
+                    <h2>Recent Activity</h2>
+                </div>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <i class="fas fa-comment-dots"></i>
+                        <p><strong>Rohan</strong> replied to your doubt on "Traffic AI".</p>
+                    </div>
+                    <div class="activity-item">
+                        <i class="fas fa-trophy"></i>
+                        <p>You earned the <strong>"Bug Hunter"</strong> Badge!</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>
